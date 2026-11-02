@@ -1,0 +1,274 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * DevCrew theme — single source of truth for every color in the app.
+ *
+ * 1. Palette tokens (--palette-*) hold the raw "Blue Theme" hex values.
+ *    Change the color scheme here and nowhere else.
+ * 2. Semantic tokens (--primary, --heading, --success …) point at palette
+ *    tokens and are what components use, via Tailwind classes such as
+ *    `bg-primary`, `text-heading`, `border-border`, `bg-success/10`.
+ * 3. Never hardcode hex/rgb values or Tailwind palette colors (blue-600,
+ *    zinc-900 …) in components. Add a token here instead.
+ */
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+    /* Brand */
+    --color-primary: var(--primary);
+    --color-primary-hover: var(--primary-hover);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-brand-accent: var(--brand-accent);
+    --color-brand-soft: var(--brand-soft);
+    --color-brand-tint: var(--brand-tint);
+    --color-brand-panel: var(--brand-panel);
+    --color-brand-panel-foreground: var(--brand-panel-foreground);
+
+    /* Text */
+    --color-heading: var(--heading);
+    --color-body: var(--body);
+    --color-subtle: var(--subtle);
+    --color-faint: var(--faint);
+
+    /* Status */
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-info: var(--info);
+    --color-info-foreground: var(--info-foreground);
+
+    /* Decorative tones: icon tiles and illustrations, never body text */
+    --color-tone-blue: var(--tone-blue);
+    --color-tone-violet: var(--tone-violet);
+    --color-tone-pink: var(--tone-pink);
+    --color-tone-emerald: var(--tone-emerald);
+    --color-tone-amber: var(--tone-amber);
+    --color-tone-cyan: var(--tone-cyan);
+
+    /* Surfaces (shadcn semantic names) */
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+    /* ── Palette: Blue Theme (light) ─────────────────────────────── */
+    --palette-primary: #2563eb;       /* Buttons, links, active states */
+    --palette-primary-hover: #1d4ed8; /* Hover state */
+    --palette-accent: #3b82f6;        /* Highlights */
+    --palette-soft-blue: #dbeafe;     /* Subtle backgrounds */
+    --palette-tint: #eff6ff;          /* Light sections */
+    --palette-heading: #0f172a;       /* Headings, titles */
+    --palette-body: #334155;          /* Body text */
+    --palette-secondary: #64748b;     /* Secondary text */
+    --palette-muted: #94a3b8;         /* Muted text, placeholders */
+    --palette-border: #e2e8f0;        /* Borders */
+    --palette-surface: #ffffff;       /* Card backgrounds */
+    --palette-canvas: #f8fafc;        /* App background */
+    --palette-success: #10b981;
+    --palette-warning: #f59e0b;
+    --palette-error: #ef4444;
+    --palette-info: #3b82f6;
+    --palette-on-color: #ffffff;      /* Text on filled brand/status colors */
+    --palette-ink: #0f172a;           /* Always-dark brand panels (auth showcase) */
+    --palette-blue: #3b82f6;          /* Decorative tones (icon tiles) */
+    --palette-violet: #8b5cf6;
+    --palette-pink: #ec4899;
+    --palette-emerald: #10b981;
+    --palette-amber: #f59e0b;
+    --palette-cyan: #06b6d4;
+}
+
+.dark {
+    /* ── Palette: Blue Theme (dark) ──────────────────────────────── */
+    --palette-primary: #3b82f6;
+    --palette-primary-hover: #2563eb;
+    --palette-accent: #60a5fa;
+    --palette-soft-blue: #1e3a8a;
+    --palette-tint: #172554;
+    --palette-heading: #f8fafc;
+    --palette-body: #cbd5e1;
+    --palette-secondary: #94a3b8;
+    --palette-muted: #64748b;
+    --palette-border: #1e293b;
+    --palette-surface: #0f172a;
+    --palette-canvas: #020617;
+    --palette-success: #34d399;
+    --palette-warning: #fbbf24;
+    --palette-error: #f87171;
+    --palette-info: #60a5fa;
+    --palette-on-color: #ffffff;
+    --palette-ink: #0f172a;
+    --palette-blue: #60a5fa;
+    --palette-violet: #a78bfa;
+    --palette-pink: #f472b6;
+    --palette-emerald: #34d399;
+    --palette-amber: #fbbf24;
+    --palette-cyan: #22d3ee;
+}
+
+/* Semantic tokens are declared on both selectors so they re-resolve
+   against the dark palette wherever `.dark` is applied. */
+:root,
+.dark {
+    --primary: var(--palette-primary);
+    --primary-hover: var(--palette-primary-hover);
+    --primary-foreground: var(--palette-on-color);
+    --brand-accent: var(--palette-accent);
+    --brand-soft: var(--palette-soft-blue);
+    --brand-tint: var(--palette-tint);
+    --brand-panel: var(--palette-ink);
+    --brand-panel-foreground: var(--palette-on-color);
+
+    --heading: var(--palette-heading);
+    --body: var(--palette-body);
+    --subtle: var(--palette-secondary);
+    --faint: var(--palette-muted);
+
+    --success: var(--palette-success);
+    --success-foreground: var(--palette-on-color);
+    --warning: var(--palette-warning);
+    --warning-foreground: var(--palette-on-color);
+    --destructive: var(--palette-error);
+    --destructive-foreground: var(--palette-on-color);
+    --info: var(--palette-info);
+    --info-foreground: var(--palette-on-color);
+
+    --tone-blue: var(--palette-blue);
+    --tone-violet: var(--palette-violet);
+    --tone-pink: var(--palette-pink);
+    --tone-emerald: var(--palette-emerald);
+    --tone-amber: var(--palette-amber);
+    --tone-cyan: var(--palette-cyan);
+
+    --background: var(--palette-canvas);
+    --foreground: var(--palette-heading);
+    --card: var(--palette-surface);
+    --card-foreground: var(--palette-heading);
+    --popover: var(--palette-surface);
+    --popover-foreground: var(--palette-heading);
+    --secondary: var(--palette-tint);
+    --secondary-foreground: var(--palette-primary-hover);
+    --muted: var(--palette-canvas);
+    --muted-foreground: var(--palette-secondary);
+    --accent: var(--palette-tint);
+    --accent-foreground: var(--palette-primary-hover);
+    --border: var(--palette-border);
+    --input: var(--palette-border);
+    --ring: var(--palette-accent);
+
+    --chart-1: var(--palette-primary);
+    --chart-2: var(--palette-accent);
+    --chart-3: var(--palette-success);
+    --chart-4: var(--palette-warning);
+    --chart-5: var(--palette-muted);
+
+    --sidebar: var(--palette-surface);
+    --sidebar-foreground: var(--palette-body);
+    --sidebar-primary: var(--palette-primary);
+    --sidebar-primary-foreground: var(--palette-on-color);
+    --sidebar-accent: var(--palette-tint);
+    --sidebar-accent-foreground: var(--palette-primary-hover);
+    --sidebar-border: var(--palette-border);
+    --sidebar-ring: var(--palette-accent);
+
+    --radius: 0.625rem;
+}
+
+.dark {
+    --secondary-foreground: var(--palette-accent);
+    --accent-foreground: var(--palette-accent);
+    --sidebar-accent-foreground: var(--palette-accent);
+}
+
+/* Live agent office (components/office): status bubbles float, idle agents breathe, typing dots bounce. */
+@theme {
+    --animate-office-float: office-float 3.2s ease-in-out infinite;
+    --animate-office-breathe: office-breathe 4.5s ease-in-out infinite;
+    --animate-office-dot: office-dot 1.2s ease-in-out infinite;
+    --animate-office-glow: office-glow 1.8s ease-in-out infinite;
+
+    @keyframes office-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-3px); }
+    }
+    @keyframes office-breathe {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.012, 1.008); }
+    }
+    @keyframes office-dot {
+        0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+        40% { opacity: 1; transform: translateY(-2px); }
+    }
+    /* A rim of light that hugs the agent's outline, breathing brighter and wider */
+    @keyframes office-glow {
+        0%, 100% {
+            filter: drop-shadow(0 0 2px var(--color-brand-accent))
+                drop-shadow(0 0 12px color-mix(in oklab, var(--color-primary) 55%, transparent));
+        }
+        50% {
+            filter: drop-shadow(0 0 4px var(--color-brand-accent))
+                drop-shadow(0 0 22px color-mix(in oklab, var(--color-primary) 80%, transparent));
+        }
+    }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-body;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-heading;
+  }
+}

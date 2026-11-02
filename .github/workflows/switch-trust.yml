@@ -1,0 +1,25 @@
+
+name: Switch Trust Inventory Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Switch Trust Inventory Scan
+        uses: sandbox-quantum/switch-trust-codescan-action@v7
+        with:
+          switch_trust_instance: https://app.switchagents.ai
+          switch_trust_token: ${{ secrets.SWITCH_TRUST_TOKEN }}
+          llm_model: anthropic:claude-opus-4-8
+          llm_api_key: ${{ secrets.LLM_API_KEY }}
